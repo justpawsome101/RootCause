@@ -4,9 +4,11 @@ description: What is this and why am I doing it?
 
 # Premise
 
-Cybersecurity can feel overwhelming to get into... the technical terminology, the sheer amount of topics, and the gap between theory and actually doing things, it's very easy to get lost.
+Cybersecurity can feel overwhelming to get into... the technical terminology, the sheer amount of topics, and the gap between theory and actually doing things.
 
-This handguide exists because I am that person who was overwhelmed. I'm a 22 years young Computer Science graduate who went through hackathons, internships, and a professional security academy, and I'm still learning. I don't have all the answers, I am very far from that. I'm figuring a lot of this out as I go too. My goal though, is to be red teamer. Like imagine the aura bruh.
+Lets just say it's very easy to get lost.
+
+This handguide exists because I am that person who was (and still lowkey is) overwhelmed. I'm a 22 years young Computer Science graduate who went through hackathons, internships, and a professional security academy BUT I'm still learning. I don't have all the answers, I am very far from that. I'm figuring a lot of this out as I go too. My goal though, is to be red teamer. Like imagine the aura bruh.
 
 So that's what this is. A resource written by someone in the thick of it, for people in the thick of it (😭).
 

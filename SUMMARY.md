@@ -5,6 +5,7 @@
 ## Networking Fundamentals
 
 * [Introduction](networking-fundamentals/introduction.md)
+* [The basics](networking-fundamentals/the-basics.md)
 
 ## Web Security
 
@@ -37,5 +38,6 @@
 ## My Journey & Lessons
 
 * [Introduction](my-journey-and-lessons/introduction.md)
+* [The Beginning](my-journey-and-lessons/the-beginning.md)
 
 ## Practical Stuff
