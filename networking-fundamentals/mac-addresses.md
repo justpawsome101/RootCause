@@ -11,9 +11,9 @@ bash
 curl https://api.macvendors.com/AA:BB:CC:DD:EE:FF
 ```
 
-OUI lookups during enumeration can reveal what hardware vendors are present in a network — useful for identifying cameras, printers, IoT devices, or virtual machine interfaces (VMware, VirtualBox have distinctive OUIs).
+OUI lookups during enumeration can reveal what hardware vendors are present in a network which is useful for identifying cameras, printers, IoT devices, or virtual machine interfaces (VMware, VirtualBox have distinctive OUIs).
 
-**MAC spoofing** — MAC addresses are software-configurable on modern interfaces. Any host can claim any MAC address. This breaks MAC-based access controls and can be used to bypass MAC filtering on wireless networks or wired 802.1X implementations that fall back to MAC authentication bypass (MAB).
+**MAC spoofing**: MAC addresses are software-configurable on modern interfaces. Any host can claim any MAC address. This breaks MAC-based access controls and can be used to bypass MAC filtering on wireless networks or wired 802.1X implementations that fall back to MAC authentication bypass (MAB).
 
 bash
 

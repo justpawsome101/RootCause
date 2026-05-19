@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # IP Addressing and Subnetting
 
 **IPv4 Structure**
@@ -10,8 +6,8 @@ An IPv4 address is a 32-bit number written as four decimal octets separated by d
 
 Every IP address on a network has two parts:
 
-* **Network portion** — identifies which network the address belongs to
-* **Host portion** — identifies the specific device within that network
+* **Network portion**: identifies which network the address belongs to
+* **Host portion**: identifies the specific device within that network
 
 The **subnet mask** defines where the network portion ends and the host portion begins. Written as `255.255.255.0` (dotted decimal) or `/24` (CIDR prefix length).
 
@@ -24,7 +20,7 @@ Mask: 255.255.255.0    → 11111111.11111111.11111111.00000000
 
 **CIDR Notation**
 
-CIDR (Classless Inter-Domain Routing) expresses the subnet mask as a prefix length appended to the IP: `192.168.1.0/24`. The `/24` means the first 24 bits are the network — the same as a `255.255.255.0` mask.
+CIDR (Classless Inter-Domain Routing) expresses the subnet mask as a prefix length appended to the IP: `192.168.1.0/24`. The `/24` means the first 24 bits are the network, the same as a `255.255.255.0` mask.
 
 **Key formula:** `2^(32 - prefix) - 2 = usable hosts`
 
@@ -44,7 +40,7 @@ The two addresses you subtract are the **network address** (all host bits zero) 
 
 **Special and Private Ranges**
 
-**Private (RFC 1918)** — not routable on the public internet. Used inside organizations. Almost always what you encounter inside a target network:
+**Private (RFC 1918)** : not routable on the public internet. Used inside organizations. Almost always what you encounter inside a target network:
 
 | Range                         | CIDR           | Common Use                     |
 | ----------------------------- | -------------- | ------------------------------ |
@@ -56,11 +52,13 @@ The two addresses you subtract are the **network address** (all host bits zero) 
 
 | Address/Range           | Purpose                        | Red team notes                                                  |
 | ----------------------- | ------------------------------ | --------------------------------------------------------------- |
-| 127.0.0.1 / 127.0.0.0/8 | Loopback                       | Services binding only to localhost — port forward to reach them |
-| 169.254.0.0/16          | APIPA / Link-local             | DHCP failure indicator; may reveal dual-homed hosts             |
+| 127.0.0.1 / 127.0.0.0/8 | Loopback                       | Services binding only to localhost , port forward to reach them |
+| 169.254.0.0/16          | APIPA\* / Link-local           | DHCP failure indicator; may reveal dual-homed hosts             |
 | 0.0.0.0                 | All interfaces / default route | Services binding to 0.0.0.0 accept connections on any interface |
 | 255.255.255.255         | Limited broadcast              | DHCP discovery; doesn't cross routers                           |
 | 100.64.0.0/10           | Shared address space           | ISP carrier-grade NAT; rarely seen internally                   |
+
+**APIPA** (Automatic Private IP Addressing):a networking fallback feature used by operating systems when a device cannot locate a DHCP server to get an IP address automatically. It self-assigns an address in the (169.254.x.x) range, allowing basic local communication without internet access.
 
 **Loopback** is especially relevant — services configured to bind only to `127.0.0.1` are "protected" by not being externally accessible. But if you're on that machine, they're fully reachable. And if you can establish a port forward, you expose them remotely.
 
@@ -68,8 +66,8 @@ The two addresses you subtract are the **network address** (all host bits zero) 
 
 For any subnet:
 
-* **Network address** — first address (all host bits zero). Not assignable to a host.
-* **Broadcast address** — last address (all host bits one). Packets sent here go to every host on the subnet.
+* **Network address**: first address (all host bits zero). Not assignable to a host.
+* **Broadcast address**: last address (all host bits one). Packets sent here go to every host on the subnet.
 
 For `192.168.1.0/24`:
 
