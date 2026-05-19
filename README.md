@@ -24,4 +24,4 @@ It gets updated as I learn. If something is wrong or could be better, that's kin
 
 If you're starting out, feeling stuck, or just want a second explanation of something then please do stick around. Also I hope you don't mind the unnecessary yap or memes sometimes but where is the fun without such??
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

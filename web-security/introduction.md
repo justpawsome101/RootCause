@@ -4,4 +4,4 @@ With all these vibe-coders around this is where most of the juicy content reside
 
 Grab a cup of hot chocolate (I dont like coffee or tea my bad😔) and lets go through it together.
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
