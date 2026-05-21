@@ -1,12 +1,8 @@
----
-hidden: true
----
-
 # A Complete Network Recon Workflow
 
 When you land on a new network, work through this systematically.
 
-**Step 1 — Understand your position**
+**Step 1 Understand your position**
 
 bash
 
@@ -31,7 +27,7 @@ ss -tlnp
 netstat -tlnp
 ```
 
-**Step 2 — Identify live hosts**
+**Step 2  Identify live hosts**
 
 bash
 
@@ -41,7 +37,7 @@ nmap -sn 192.168.1.0/24
 netdiscover -r 192.168.1.0/24
 ```
 
-**Step 3 — Quick port scan of all live hosts**
+**Step 3  Quick port scan of all live hosts**
 
 bash
 
@@ -49,7 +45,7 @@ bash
 nmap -T4 --open -F 192.168.1.0/24 -oN quick_scan.txt
 ```
 
-**Step 4 — Full scan of interesting hosts**
+**Step 4 Full scan of interesting hosts**
 
 bash
 
@@ -57,7 +53,7 @@ bash
 nmap -sV -sC -p- -T4 192.168.1.10 -oN full_192.168.1.10.txt
 ```
 
-**Step 5 — DNS enumeration**
+**Step 5 DNS enumeration**
 
 bash
 
@@ -67,7 +63,7 @@ dig axfr @192.168.1.53 target.local
 for ip in $(seq 1 254); do dig -x 192.168.1.$ip +short; done
 ```
 
-**Step 6 — Service-specific enumeration**
+**Step 6 Service-specific enumeration**
 
 bash
 
@@ -96,6 +92,6 @@ showmount -e 192.168.1.10
 ftp 192.168.1.21    # try anonymous:anonymous
 ```
 
-**Step 7 — Document everything**
+**Step 7  Document everything**
 
 Every IP, open port, service version, hostname, and credential you find. Screenshots and command output. You'll be building on this for every subsequent phase of the engagement.

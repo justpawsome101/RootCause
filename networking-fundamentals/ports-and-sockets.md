@@ -1,24 +1,20 @@
----
-hidden: true
----
-
 # Ports and Sockets
 
 **What Ports Are**
 
 An IP address identifies a host. A **port** identifies a specific service or process on that host. Ports are 16-bit numbers ranging from 0 to 65,535.
 
-A **socket** is the combination of an IP address and a port: `192.168.1.10:80`. A **connection** is defined by four values: source IP, source port, destination IP, destination port. This four-tuple is what allows a host to maintain thousands of simultaneous connections — each has a unique combination.
+A socket is the combination of an IP address and a port: `192.168.1.10:80`. A connection is defined by four values: source IP, source port, destination IP, destination port.&#x20;
 
 **Port Ranges**
 
-| Range       | Name              | Notes                                        |
-| ----------- | ----------------- | -------------------------------------------- |
-| 0–1023      | Well-known ports  | Assigned by IANA; require root/admin to bind |
-| 1024–49151  | Registered ports  | Common application ports                     |
-| 49152–65535 | Dynamic/ephemeral | Assigned to clients for outgoing connections |
+| Range       | Name             | Notes                                        |
+| ----------- | ---------------- | -------------------------------------------- |
+| 0–1023      | Well-known ports | Assigned by IANA; require root/admin to bind |
+| 1024–49151  | Registered ports | Common application ports                     |
+| 49152–65535 | Dynamic          | Assigned to clients for outgoing connections |
 
-When you connect to a web server on port 80, your OS assigns you an ephemeral source port (e.g., `54231`) for the outgoing connection. The server sees `your_ip:54231 → server_ip:80`.
+When you connect to a web server on port 80, your OS assigns you a dynamic source port (e.g., `54231`) for the outgoing connection. The server sees `your_ip:54231 → server_ip:80`.
 
 **Key Ports to Know**
 

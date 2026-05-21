@@ -23,10 +23,10 @@ The most important two are:
 Companies typically have many separate local networks across headquarters, branches, and data centers that need to be joined together so they can communicate as one. These connections form a **WAN (Wide Area Network)**, and they're built using one of the following technologies:
 
 * **Leased Lines**: A permanently reserved, private cable between two locations. Fast and reliable, but expensive and inflexible.
-* **MPLS (Multiprotocol Label Switching)**: A private virtual connection rented from a telecom provider. Traffic is routed efficiently using labels rather than IP addresses. More flexible than leased lines, but still costly.
+* **MPLS (Multiprotocol Label Switching)**: A private virtual connection rented from a telecom provider. Traffic is routed efficiently using labels rather than IP addresses. More flexible than leased lines, but still expensive.
 * **VPN (Virtual Private Network)**: An encrypted tunnel built on top of the public internet. Cheaper than leased lines or MPLS, but performance depends on internet quality.
 * **SD-WAN (Software-Defined Wide Area Network):**  Software that manages multiple connections (including VPNs and leased lines) simultaneously, automatically choosing the best path for each type of traffic. More flexible and cost-effective than traditional options.
-* **SASE (Secure Access Service Edge):** A cloud-based framework that bundles SD-WAN with security services like firewalls and Zero Trust. Designed for modern companies with remote workers — users connect securely to company apps directly via the cloud, without all traffic being funneled through a central office first.
+* **SASE (Secure Access Service Edge):** A cloud-based framework that bundles SD-WAN with security services like firewalls and Zero Trust. Designed for modern companies with remote workers. Users connect securely to company apps directly via the cloud, without all traffic being funneled through a central office first.
 
 #### Most site-to-site connections today are **VPNs using IPsec tunnels**.
 

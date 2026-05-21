@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # Network Scanning and Enumeration
 
 **Methodology**
@@ -71,7 +67,7 @@ nmap -sS -sU -p T:1-1000,U:53,67,68,69,123,161 192.168.1.10
 | XMAS    | `-sX` | FIN+PSH+URG → (no response = open, RST = closed)                     | Same as FIN                          |
 | ACK     | `-sA` | ACK → (RST = unfiltered, no response = filtered)                     | Maps firewall rules, not open/closed |
 
-Note: FIN/NULL/XMAS scans only work against RFC-compliant stacks. Windows returns RST for all ports regardless of state — these scans are useless against Windows.
+Note: FIN/NULL/XMAS scans only work against RFC-compliant stacks. Windows returns RST for all ports regardless of state so these scans are useless against Windows.
 
 **Service and Version Detection**
 
@@ -177,9 +173,9 @@ Display filters (Wireshark syntax — applied after capture):
   kerberos
 ```
 
-**Follow TCP stream** — right-click any packet → Follow → TCP Stream. Reconstructs the full conversation. Invaluable for reading HTTP, FTP, Telnet, SMTP in plaintext.
+**Follow TCP stream**: right-click any packet → Follow → TCP Stream. Reconstructs the full conversation. Invaluable for reading HTTP, FTP, Telnet, SMTP in plaintext.
 
-**Export objects** — File → Export Objects → HTTP. Extracts files transferred over HTTP from a capture.
+**Export objects**: File → Export Objects → HTTP. Extracts files transferred over HTTP from a capture.
 
 **tcpdump**
 

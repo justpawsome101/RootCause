@@ -6,7 +6,7 @@
 
 * [Introduction](networking-fundamentals/introduction.md)
 * [The basics](networking-fundamentals/the-basics/README.md)
-  * [Page 1](networking-fundamentals/the-basics/page-1.md)
+  * [Some network basics practical examples](networking-fundamentals/the-basics/some-network-basics-practical-examples.md)
 * [The OSI Model](networking-fundamentals/the-osi-model.md)
 * [How Data Moves](networking-fundamentals/how-data-moves.md)
 * [The TCP/IP Model](networking-fundamentals/the-tcp-ip-model.md)
@@ -45,6 +45,7 @@
 ## Current Cybersecurity Affairs
 
 * [Introduction](current-cybersecurity-affairs/introduction.md)
+* [DDoS attacks](current-cybersecurity-affairs/ddos-attacks.md)
 
 ## My Journey & Lessons
 

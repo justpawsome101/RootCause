@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # Tunneling and Covert Channels
 
 **DNS Tunneling**

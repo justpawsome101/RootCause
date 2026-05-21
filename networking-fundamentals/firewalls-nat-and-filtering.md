@@ -1,14 +1,10 @@
----
-hidden: true
----
-
 # Firewalls, NAT, and Filtering
 
 **Firewall Types**
 
 **Packet filter (stateless):** Evaluates each packet independently based on source/destination IP, port, protocol, and direction. No memory of previous packets. Bypassed by fragmentation, using allowed ports, and source port manipulation.
 
-**Stateful inspection:** Tracks connection state — knows an inbound ACK is a legitimate reply to an outbound SYN rather than an unsolicited probe. Significantly better than stateless but still operates at Layer 3–4.
+**Stateful inspection:** Tracks connection state. It knows an inbound ACK is a legitimate reply to an outbound SYN rather than an unsolicited probe. Significantly better than stateless but still operates at Layer 3–4.
 
 **Application layer / Next-Gen Firewall (NGFW):** Inspects up to Layer 7. Can identify protocols by behavior regardless of port (detecting HTTP on port 4444), detect tunneling, and apply policy per application. JA3 fingerprinting, SSL inspection, and user identity integration. Harder to bypass but misconfiguration is common.
 
@@ -27,9 +23,9 @@ Rule 4: Deny all
 
 Common misconfigurations: overly broad rules (`any` source or destination), rules allowing entire RFC 1918 space when only specific hosts are needed, forgotten test rules left open, no egress filtering.
 
-**NAT — Network Address Translation**
+**NAT(Network Address Translation)**
 
-NAT maps internal private addresses to one or more public addresses. The most common form is **PAT (Port Address Translation)** or "NAT overload" — thousands of internal hosts share a single public IP, differentiated by their source port mappings.
+NAT maps internal private addresses to one or more public addresses. The most common form is PAT (Port Address Translation) or "NAT overload"which is when thousands of internal hosts share a single public IP, differentiated by their source port mappings.
 
 ```
 Internal: 192.168.1.10:54231 → Internet: 1.2.3.4:54231
@@ -41,14 +37,14 @@ NAT maintains a translation table to match return traffic.
 **Implications:**
 
 * Hosts behind NAT can't be directly reached from outside without port forwarding
-* Once inside a network, NAT is largely irrelevant — you're on the trusted side
+* Once inside a network, NAT is largely irrelevant, you're on the trusted side
 * For C2, reverse shells and beaconing work fine (outbound connections from victim to attacker)
 * Bind shells (attacker connects to victim) require port forwarding or other techniques
 * Double-NAT complicates reverse shell callbacks — if your attacker machine is also NATted, you need a VPS or external server to catch callbacks
 
 **Egress Filtering**
 
-Many organizations filter outbound traffic — blocking non-standard ports, restricting DNS to internal resolvers, preventing direct internet access without a proxy. This is what you're working around when building C2 infrastructure.
+Many organizations filter outbound traffic, blocking non-standard ports, restricting DNS to internal resolvers, preventing direct internet access without a proxy. This is what you're working around when building C2 infrastructure.
 
 **Common restrictions and bypasses:**
 
