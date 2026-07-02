@@ -6,7 +6,7 @@
 
 * [Introduction](networking-fundamentals/introduction.md)
 * [The basics](networking-fundamentals/the-basics/README.md)
-  * [Some network basics practical examples](networking-fundamentals/the-basics/some-network-basics-practical-examples.md)
+  * [Cisco Networking Academy Packet tracer](networking-fundamentals/the-basics/cisco-networking-academy-packet-tracer.md)
 * [The OSI Model](networking-fundamentals/the-osi-model.md)
 * [How Data Moves](networking-fundamentals/how-data-moves.md)
 * [The TCP/IP Model](networking-fundamentals/the-tcp-ip-model.md)

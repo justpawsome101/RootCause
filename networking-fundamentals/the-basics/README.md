@@ -10,7 +10,7 @@ Networks exist at different scales (as we said "**two or more devices"**).
 
 The most important two are:
 
-**LAN (Local Area Network)** : a network confined to a small geographic area, like an office or building. Devices on a LAN are typically connected via Ethernet cable or Wi-Fi. Communication is fast and cheap. This is the environment you'll most often be operating inside during an engagement.
+**LAN (Local Area Network)** : a network confined to a small geographic area, like an office or building. Devices on a LAN are typically connected via Ethernet cable or Wi-Fi. Communication is fast and cheap. This is the environment you'll most often be operating inside during an engagement. 💍
 
 **WAN (Wide Area Network)** : a network spanning large geographic distances. The internet is the largest WAN. Organizations connect their offices together over WANs.
 
