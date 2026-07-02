@@ -38,18 +38,15 @@
 
 * [Introduction](infrastructure-and-cloud-security/introduction.md)
 
-## Bug Bounty & Methodology
-
-* [Introduction](bug-bounty-and-methodology/introduction.md)
-
-## Current Cybersecurity Affairs
-
-* [Introduction](current-cybersecurity-affairs/introduction.md)
-* [DDoS attacks](current-cybersecurity-affairs/ddos-attacks.md)
-
 ## My Journey & Lessons
 
 * [Introduction](my-journey-and-lessons/introduction.md)
 * [The Beginning](my-journey-and-lessons/the-beginning.md)
 
 ## Practical Stuff
+
+* [Phishing Basics with GoPhish](practical-stuff/phishing-basics-with-gophish.md)
+* [DNS Labs](practical-stuff/dns-labs.md)
+* [BeEF](practical-stuff/beef.md)
+* [Wi-Fi WPA2 Cracking](practical-stuff/wi-fi-wpa2-cracking.md)
+* [flAWS Challenge](practical-stuff/flaws-challenge.md)
