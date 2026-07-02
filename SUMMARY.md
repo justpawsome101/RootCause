@@ -46,7 +46,7 @@
 ## Practical Stuff
 
 * [Phishing Basics with GoPhish](practical-stuff/phishing-basics-with-gophish.md)
-* [DNS Labs](practical-stuff/dns-labs.md)
+* [DNS Fundamentals Lab](practical-stuff/dns-fundamentals-lab.md)
 * [BeEF](practical-stuff/beef.md)
 * [Wi-Fi WPA2 Cracking](practical-stuff/wi-fi-wpa2-cracking.md)
 * [flAWS Challenge](practical-stuff/flaws-challenge.md)
