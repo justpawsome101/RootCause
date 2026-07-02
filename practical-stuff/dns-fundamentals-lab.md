@@ -7,7 +7,7 @@ description: >-
 
 # DNS Fundamentals Lab
 
-#### Setup
+### Setup
 
 Ubuntu Server as the authoritative DNS server, base machine as the attacker box. Installed BIND9 on Ubuntu and confirmed it was running via `systemctl status bind9`. Walked through the default zone files in `/etc/bind/` to get a feel for the boilerplate (`db.local`, `db.127`, etc.) before building anything custom.
 
@@ -15,7 +15,7 @@ Ubuntu Server as the authoritative DNS server, base machine as the attacker box.
 
 <figure><img src="../.gitbook/assets/image (42).png" alt=""><figcaption><p>File contents of db.local for reference.</p></figcaption></figure>
 
-#### 1. Authoritative DNS Server
+### 1. Authoritative DNS Server
 
 Created a zone file for `amogus.sus`, defining the SOA record (serial, refresh, retry, expire, negative cache TTL), an NS record pointing to `ns1.amogus.sus`, and a handful of A records (`www`, `mail`, `dev`, `vpn`, `internal`, `db-prod`) all pointing at the same host, plus a CNAME (`remote` → `vpn`) and an MX record for `mail`.&#x20;
 
@@ -29,7 +29,7 @@ Confirmed DNS resolution worked end-to-end with `dig` from my host machine, both
 
 **Takeaway:** DNS is just flat text files mapping names to data, and the SOA record is what declares who's authoritative. Seeing `aa` (authoritative answer) in a `dig` response means you're talking to the source of truth, not a caching resolver.
 
-#### 2. Zone Transfers (AXFR)
+### 2. Zone Transfers (AXFR)
 
 Set `allow-transfer { any; }` on the zone and ran `dig axfr` .
 
@@ -49,7 +49,7 @@ Then locked it down with `allow-transfer { none; }`, restarted BIND, and confirm
 
 <figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption><p>Variations and allowed users.</p></figcaption></figure>
 
-#### 3. Subdomain Enumeration
+### 3. Subdomain Enumeration
 
 Tried `dnsrecon` first but hit a Python/dependency issue, so switched to `fierce`. With transfer set back to `any`, fierce basically mirrored what a full AXFR gives you.&#x20;
 
@@ -61,7 +61,7 @@ Set transfer to `none` and re-ran it, this time it fell back to wordlist-based b
 
 **Takeaway:** Zone transfer (when it works) is complete and instant; brute force is limited by the choice of wordlist. In the real world, where AXFR is almost always locked down the next steps are to brute force with a good wordlist and check certificate transparency logs (crt.sh) for historical subdomain data. Each method catches different things.
 
-#### 4. PTR Records / Reverse DNS
+### 4. PTR Records / Reverse DNS
 
 Built a reverse zone (`10.168.192.in-addr.arpa`) with PTR records mapping the host IP back to `ns1`, `www`, and `mail`. Queried it directly with `dig -x` and got all three hostnames back for one IP.
 
@@ -73,7 +73,7 @@ Built a reverse zone (`10.168.192.in-addr.arpa`) with PTR records mapping the ho
 
 **Takeaway:** Forward and reverse DNS are separate zones, configured independently and reverse often gets neglected. On a real engagement an attacker would often start from a known IP range (from a WHOIS lookup) rather than a domain name, and sweep it with a command such as: `for i in $(seq 1 254); do dig @ns -x 192.168.10.$i +short; done`.&#x20;
 
-#### 5. DNS Sinkhole
+### 5. DNS Sinkhole
 
 Built a `blocklist` zone for a fake domain (`imposter.com`) with a wildcard `* IN A 0.0.0.0` and a short (60s) TTL, registered it in `named.conf.local`.&#x20;
 
@@ -91,7 +91,7 @@ Queried both the base domain and an arbitrary subdomain (`vent.imposter.com`) an
 
 From the offensive side: if a domain controlled by the attacker is queried mid engagement and returns  `0.0.0.0` back instead of the real IP signals that the attacker is behind a sinkhole and their C2 is being intercepted.
 
-#### 6. DoH Bypass
+### 6. DoH Bypass
 
 Queried `imposter.com` again, this time straight against Cloudflare's `1.1.1.1` instead of the local sinkholed resolver and got the _real_ IP (`64.190.63.222`) back instead of `0.0.0.0`. Same domain, completely different answer depending on which resolver was asked.
 
@@ -99,7 +99,7 @@ Queried `imposter.com` again, this time straight against Cloudflare's `1.1.1.1` 
 
 **Takeaway:** DNS-over-HTTPS/TLS sends queries to a hardcoded resolver over 443/853, sidestepping any network-level DNS control entirely, including sinkholes. This is why modern malware hardcodes DoH: it bypasses network level defenses that assume they're the only path DNS traffic can take. Blocking DoT (port 853) at the firewall is easy, but DoH works on 443 alongside normal HTTPS traffic, so catching it needs SSL inspection or endpoint agents rather than just DNS-layer controls.
 
-#### 7. DNS Tunneling (dnscat2)
+### 7. DNS Tunneling (dnscat2)
 
 Compiled and ran the dnscat2 server on Ubuntu, connected a client from Kali with a pre-shared secret, got an encrypted, verified session. From the server side, spawned a `shell` session inside that tunnel and ran commands (`whoami`, `pwd`) purely over DNS query/response traffic and confirmed with a working reverse shell riding entirely on TXT/CNAME/MX-style queries.
 
@@ -111,7 +111,7 @@ Compiled and ran the dnscat2 server on Ubuntu, connected a client from Kali with
 
 Detection wise, this isn't something a basic firewall catches, it needs deep DNS inspection. Tools like Zeek with DNS logging, or an NDR platform, are what actually catch this in practice. But many companies do not use these.
 
-#### Conclusion
+### Conclusion
 
 DNS isn't a side channel, it spans the whole kill chain: recon through zone misconfigurations, evasion through sinkholes and DoH, and even C2 through tunneling when nothing else gets out. Treating DNS with the same scrutiny as any other trust boundary, not an afterthought, is the main takeaway here.
 
