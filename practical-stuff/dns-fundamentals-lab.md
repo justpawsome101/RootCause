@@ -9,7 +9,7 @@ description: >-
 
 ### Setup
 
-Ubuntu Server as the authoritative DNS server, base machine as the attacker box. Installed BIND9 on Ubuntu and confirmed it was running via `systemctl status bind9`. Walked through the default zone files in `/etc/bind/` to get a feel for the boilerplate (`db.local`, `db.127`, etc.) before building anything custom.
+Ubuntu Server as the authoritative DNS server, base machine as the attacker box. Installed BIND9 on Ubuntu and confirmed it was running via `systemctl status bind9`.
 
 <figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption><p>Installing BIND9 on Ubuntu VM.</p></figcaption></figure>
 
